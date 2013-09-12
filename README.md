@@ -1,6 +1,7 @@
 # passport-signatures
 
 [![Build Status](https://travis-ci.org/chafnan/passport-signatures.png?branch=master)](https://travis-ci.org/chafnan/passport-signatures)
+[![Dependency Status](https://david-dm.org/chafnan/passport-signatures.png)](https://david-dm.org/chafnan/passport-signatures)
 
 [Passport](http://passportjs.org/) strategy for signature authentication.
 
