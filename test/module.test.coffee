@@ -1,4 +1,4 @@
-strategy = require '..'
+strategy = require '../src/index'
 
 chai = require 'chai'
 should = chai.should()

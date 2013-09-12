@@ -1,4 +1,4 @@
-Strategy = require '../lib/strategy'
+Strategy = require '../src/strategy'
 
 chai = require 'chai'
 should = chai.should()

@@ -31,13 +31,24 @@
     "passport-strategy": "~1.0"
   },
   "devDependencies": {
-    "coffee-script": "~1.6",
-    "mocha": "~1.12",
+    "blanket": "~1.1.5",
     "chai": "~1.7",
-    "chai-passport-strategy": "~0.1"
+    "chai-passport-strategy": "~0.1",
+    "coffee-script": "~1.6",
+    "coveralls": "~2.3.0",
+    "mocha": "~1.12",
+    "mocha-lcov-reporter": "~0.0.1"
   },
-  "engines": { "node": ">= 0.4.0" },
+  "engines": {
+    "node": ">= 0.4.0"
+  },
   "scripts": {
-    "test": "node_modules/.bin/cake test"
+    "test": "node_modules/.bin/cake test",
+    "test-coverage": "node_modules/.bin/cake test:coverage",
+    "blanket": {
+      "loader": "./node-loaders/coffee-script",
+      "pattern": "src",
+      "data-cover-never": "node_modules"
+    }
   }
 }

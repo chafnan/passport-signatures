@@ -25,6 +25,7 @@ task 'docs', 'generate documentation', -> docco()
 task 'build', 'compile source', -> build -> log ":)", green
 task 'watch', 'compile and watch', -> build true, -> log ":-)", green
 task 'test', 'run tests', -> build -> mocha -> log ":)", green
+task 'test:coverage', 'run test covearge', -> build -> coverage -> log ":)", green
 task 'clean', 'clean generated files', -> clean -> log ";)", green
 
 # Internal Functions
@@ -91,6 +92,9 @@ moduleExists = (name) ->
     log "#{name} required: npm install #{name}", red
     false
 
+coverage = (callback) ->
+  options = ['--require', 'blanket', '--reporter', 'html-cov']
+  mocha options, callback
 
 mocha = (options, callback) ->
   #if moduleExists('mocha')
