@@ -38,6 +38,6 @@
   },
   "engines": { "node": ">= 0.4.0" },
   "scripts": {
-    "test": "cake test"
+    "test": "node_modules/.bin/cake test"
   }
 }
