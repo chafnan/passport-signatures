@@ -1,6 +1,6 @@
 # passport-signature
 
-TODO: Setup travis
+[![Build Status](https://travis-ci.org/chafnan/passport-signatures.png?branch=master)](https://travis-ci.org/chafnan/passport-signatures)
 
 [Passport](http://passportjs.org/) strategy for signature authentication.
 
