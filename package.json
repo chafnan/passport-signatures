@@ -1,5 +1,5 @@
 {
-  "name": "passport-signature",
+  "name": "passport-signatures",
   "version": "0.0.1",
   "description": "Signature authentication strategy for Passport.",
   "keywords": [

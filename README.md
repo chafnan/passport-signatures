@@ -1,4 +1,4 @@
-# passport-signature
+# passport-signatures
 
 [![Build Status](https://travis-ci.org/chafnan/passport-signatures.png?branch=master)](https://travis-ci.org/chafnan/passport-signatures)
 
@@ -12,7 +12,7 @@ that supports [Connect](http://www.senchalabs.org/connect/)-style middleware
 
 ## Install
 
-    $ npm install passport-signature
+    $ npm install passport-signatures
 
 ## About Strategy
 
