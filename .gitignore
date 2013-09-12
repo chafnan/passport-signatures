@@ -1,0 +1,32 @@
+# Eclipse
+.classpath
+.project
+.settings/
+
+# Intellij
+.idea/
+*.iml
+*.iws
+
+# Mac
+.DS_Store
+
+# Maven
+log/
+target/
+
+# NodeJS
+node_modules/
+npm-debug.log
+
+# Bower
+app/vendor/
+
+# connect-assets
+builtAssets/
+
+logs/
+dist/
+build/
+reports/
+

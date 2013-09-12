@@ -1,0 +1,4 @@
+--ui bdd
+--reporter spec
+--compilers coffee:coffee-script
+--require ./test/bootstrap/node.coffee
