@@ -1,8 +1,5 @@
 strategy = require '../src/index'
 
-chai = require 'chai'
-should = chai.should()
-
 describe 'passport-signature', ->
 
   it 'should export Strategy constructor directly from package', ->

@@ -1,17 +1,16 @@
-passport = require('passport-strategy')
-util = require('util');
+crypto = require 'crypto'
+passport = require 'passport-strategy'
+util = require 'util'
+BadRequestError = require './errors/BadRequestError'
 
 ###
  Creates an instance of `Strategy`.
 
- The anonymous authentication strategy passes authentication without verifying
- credentials.
+ The signature authentication strategy passes authentication with verifying a
+ calculated signature.
 
- Applications typically use this as a fallback on endpoints that can respond
- to both authenticated and unauthenticated requests.  If credentials are not
- supplied, this stategy passes authentication while leaving `req.user` set to
- `undefined`, allowing the route to handle unauthenticated requests as
- desired.
+ This strategy can calculate the signature from the specified order of sources
+ that can include anything in the request or headers.
 
  Examples:
 
@@ -20,13 +19,40 @@ util = require('util');
  @constructor
  @api public
 ###
+
 class Strategy extends passport.Strategy
 
-  constructor: ->
-    @name = 'signature'
+  constructor: (@options, @verify) ->
+    @verify = @options if typeof @options is 'function'
+    throw new TypeError('SignatureStrategy requires a verify callback.') unless @verify
 
-  authenticate: ->
-    @pass()
+    @_algorithm = options.algorithm ? 'sha1'
+    @_encoding = options.encoding ? 'base64'
+
+    super @
+    @name = 'signature'
+    @_verify = @verify
+
+
+  authenticate: (req, options) ->
+    options ?= {}
+
+    createSignature = (signingString, secretKey) =>
+      digest = crypto.createHmac(@_algorithm, secretKey).update(signingString).digest @_encoding
+      new Buffer(digest).toString @_encoding
+
+    verified = (err, user, signature, signingString, secretKey, info) =>
+      return @error(err) if err
+      return @fail(info) unless user
+
+      createdSignature = createSignature signingString, secretKey
+      failMessage = options.signatureMismatchMessage ? 'Signatures do not match'
+      return @fail(failMessage) if signature isnt createdSignature
+
+      @success user, info
+
+    @_verify req, verified
+    return
 
 
 module.exports = Strategy;

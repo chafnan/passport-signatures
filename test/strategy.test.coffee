@@ -1,33 +1,12 @@
-Strategy = require '../src/strategy'
-
 chai = require 'chai'
-should = chai.should()
+Strategy = require '../src/strategy'
 
 describe 'Strategy', ->
     
-  strategy = new Strategy -> {}
-    
-  it 'should be named anonymous', ->
+  strategy = new Strategy(->)
+
+  it 'should be named signature', ->
     strategy.name.should.be.equal 'signature'
-  
-  describe 'handling a request', ->
 
-    ok = null
-    request = null
-
-    before (done) ->
-      chai.passport(strategy)
-        .pass(->
-          ok = true
-          done()
-        )
-        .req((req) ->
-          request = req
-        )
-        .authenticate()
-    
-    it 'should call pass', ->
-      ok.should.be.true
-    
-    it 'should leave req.user undefined', ->
-      should.not.exist request.user
+  it 'should throw if constructed without a verify callback', ->
+    (-> new Strategy()).should.throw 'SignatureStrategy requires a verify callback.'
