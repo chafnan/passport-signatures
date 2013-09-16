@@ -1,0 +1,10 @@
+{
+  "name": "passport-signatures-example",
+  "version": "0.0.0",
+  "dependencies": {
+    "coffee-script": "~1.6.3",
+    "express": "~3.4.0",
+    "passport": "~0.1.17",
+    "passport-signatures": "~0.0.1"
+  }
+}

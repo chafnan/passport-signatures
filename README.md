@@ -35,10 +35,20 @@ the signature sent by the client.
 
 #### Configure Strategy
 
-TODO: Document Setup
+The signature and public key can be passed through any method that you choose
+. In this example, they are being passed through the header.  To see this
+example live check out in the [signature example](https://github.com/chafnan/passport-signatures/tree/master/examples/signature).
 
 ``` Javascript
-TODO: Demonstrate setup
+passport.use(new SignatureStrategy({}, function(req, done) {
+    User.findByPublicKey(req.headers.publickey, function(err, user) {
+      var signingString;
+      if (err) { return done(err); }
+      if (!user) { return done(null, false); }
+      signingString = req.method + "\n" + req.headers.publickey;
+      return done(null, user, req.headers.signature, signingString, user.secretKey);
+    });
+  }));
 ```
 
 #### Authenticate Requests
@@ -51,7 +61,7 @@ For example, as route middleware in an [Express](http://expressjs.com/)
 application:
 
 ``` Javascript
-TODO: Example use as middleware
+passport.authenticate('signature', { session: false })
 ```
 
 ## Examples
