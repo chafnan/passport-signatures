@@ -98,7 +98,7 @@ coveralls = (callback) ->
   launch 'cat', ['./coverage/lcov.info'], callback
 
 coverage = (callback) ->
-  options = ['cover', '_mocha', '--', '-R', 'spec', '--colors']
+  options = ['cover', './node_modules/.bin/_mocha', '--', '-R', 'spec', '--colors']
   istanbul options, callback
 
 report = (callback) ->
