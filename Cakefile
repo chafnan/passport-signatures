@@ -21,12 +21,14 @@ reset = '\x1b[0m'
 red = '\x1b[0;31m'
 
 # Cakefile Tasks
-task 'docs', 'generate documentation', -> docco()
-task 'build', 'compile source', -> build -> log ":)", green
-task 'watch', 'compile and watch', -> build true, -> log ":-)", green
-task 'test', 'run tests', -> build -> mocha -> log ":)", green
-task 'test:coverage', 'run test covearge', -> build -> coverage -> log ":)", green
-task 'clean', 'clean generated files', -> clean -> log ";)", green
+task 'docs', 'generate documentation',                    -> docco()
+task 'build', 'compile source',                           -> build -> log ":)", green
+task 'watch', 'compile and watch',                        -> build true, -> log ":-)", green
+task 'test', 'run tests',                                 -> build -> mocha -> log ":)", green
+task 'test:coverage', 'run test covearge',                -> build -> coverage -> log ":)", green
+task 'test:report', 'run test report',                    -> build -> coverage -> report -> log ':)', green
+task 'coveralls:submit', 'submit coverage to coveralls',  -> coveralls()
+task 'clean', 'clean generated files',                    -> clean -> log ";)", green
 
 # Internal Functions
 walk = (dir, done) ->
@@ -92,9 +94,15 @@ moduleExists = (name) ->
     log "#{name} required: npm install #{name}", red
     false
 
+coveralls = (callback) ->
+  launch 'cat', ['./coverage/lcov.info'], callback
+
 coverage = (callback) ->
-  options = ['--require', 'blanket', '--reporter', 'html-cov']
-  mocha options, callback
+  options = ['cover', '_mocha', '--', '-R', 'spec', '--colors']
+  istanbul options, callback
+
+report = (callback) ->
+  launch 'open', ['./coverage/lcov-report/index.html'], callback
 
 mocha = (options, callback) ->
   #if moduleExists('mocha')
@@ -105,6 +113,13 @@ mocha = (options, callback) ->
   options.push '--colors'
 
   launch 'mocha', options, callback
+
+istanbul = (options, callback) ->
+  if typeof options is 'function'
+    callback = options
+    options = []
+
+  launch 'istanbul', options, callback
 
 docco = (callback) ->
   #if moduleExists('docco')

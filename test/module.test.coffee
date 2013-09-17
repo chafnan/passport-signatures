@@ -1,4 +1,4 @@
-strategy = require '../src/index'
+strategy = require '../lib/index'
 
 describe 'passport-signature', ->
 

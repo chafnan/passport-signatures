@@ -1,6 +1,6 @@
 chai = require 'chai'
 crypto = require 'crypto'
-Strategy = require '../src/strategy'
+Strategy = require '../lib/strategy'
 
 describe 'Strategy (normal)', ->
 
